@@ -1,0 +1,9 @@
+<!doctype html>
+<html>
+    <body>
+        <h1>Blocks:</h1>
+        {% for block in blocks %}
+            <p>Hash: {{ block["hash"] }} nTx: {{ block["nTx"] }}</p>
+        {% endfor %}
+    </body>
+</html>
