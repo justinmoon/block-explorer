@@ -3,7 +3,7 @@
     <body>
         <h1>Blocks:</h1>
         {% for block in blocks %}
-            <p>Hash: {{ block["hash"] }} nTx: {{ block["nTx"] }}</p>
+        <p>Hash: <a href="{{ '/block/' + block['hash'] }}">{{ block["hash"] }}</a> nTx: {{ block["nTx"] }}</p>
         {% endfor %}
     </body>
 </html>

@@ -10,7 +10,7 @@
         </ul>
         <h1>Transactions</h1>
         {% for tx in block["tx"] %}
-            <h3>Tx ID: {{ tx["txid"] }}</h3>
+            <h3>Tx ID: <a href="{{ '/tx/' + tx['txid'] }}">{{ tx["txid"] }}</a></h3>
             <h5>Inputs</h5>
             {% for vin in tx["vin"] %}
                 <ul>

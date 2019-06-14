@@ -1,11 +1,11 @@
 from flask import Flask, render_template
-from explorer import get_block_with_txns, get_blocks, get_tx
+from explorer import get_block_with_txns, get_last_blocks, get_tx
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    blocks = get_blocks(1000, 10)
+    blocks = get_last_blocks(10)
     return render_template("index.html", blocks=blocks)
 
 @app.route("/block/<blockhash>")

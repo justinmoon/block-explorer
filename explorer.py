@@ -18,9 +18,9 @@ def get_blocks(height, num_blocks):
         blocks.append(block)
     return blocks
 
+def get_last_blocks(num_blocks):
+    height = rpc.getblockchaininfo()["blocks"]
+    return get_blocks(height, num_blocks)
+
 def get_tx(tx_id):
     return rpc.getrawtransaction(tx_id, True)
-
-if __name__ == "__main__":
-    tx_id = "f9fbb483821735103d0c7c2ce2771a09bb1e20731d17c6e8ae204623a9dc0b10"
-    print(get_tx(tx_id))
