@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+    <body>
+        <h1>Tx ID: {{ tx["txid"] }}</h1>
+        <h3>Inputs</h3>
+        {% for vin in tx["vin"] %}
+            <ul>
+                {% if "coinbase" in vin %}
+                <li>Coinbase</li>
+                {% else %}
+                <li>Tx ID: {{ vin["txid"] }}</li>
+                {% endif %}
+            </ul>
+        {% endfor %} 
+        <h3>Outputs</h3>
+        {% for vout in tx["vout"] %}
+            <ul>
+                <li>Amount: {{ vout["value"] }}</li>
+                <li>Type: {{ vout["scriptPubKey"]["type"] }}</li>
+            </ul>
+        {% endfor %}
+    </body>
+</html>
