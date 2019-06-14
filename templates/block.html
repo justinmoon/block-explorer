@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+    <body>
+        <h1>Block</h1>
+        <ul>
+            <li>Hash: {{ block["hash"] }}</li>
+            <li>nTx: {{ block["nTx"] }} </li>
+            <li>Timestamp: {{ block["time"] }} </li>
+            <li>Confirmations: {{ block["confirmations"] }}</li>
+        </ul>
+        <h1>Transactions</h1>
+        {% for tx in block["tx"] %}
+            <h3>Tx ID: {{ tx["txid"] }}</h3>
+            <h5>Inputs</h5>
+            {% for vin in tx["vin"] %}
+                <ul>
+                    {% if "coinbase" in vin %}
+                    <li>Coinbase</li>
+                    {% else %}
+                    <li>Tx ID: {{ vin["txid"] }}</li>
+                    {% endif %}
+                </ul>
+            {% endfor %} 
+            <h5>Outputs</h5>
+            {% for vout in tx["vout"] %}
+                <ul>
+                    <li>Amount: {{ vout["value"] }}</li>
+                    <li>Type: {{ vout["scriptPubKey"]["type"] }}</li>
+                </ul>
+            {% endfor %}
+        {% endfor %} 
+    </body>
+</html>

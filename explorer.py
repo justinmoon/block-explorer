@@ -2,12 +2,18 @@ from rpc import RPC
 
 rpc = RPC()
 
+def get_block(blockhash):
+    return rpc.getblock(blockhash)
+
+def get_block_with_txns(blockhash):
+    return rpc.getblock(blockhash, 2)
+
 def get_blocks(height, num_blocks):
     """get `num_blocks` starting from `height`"""
     blocks = []
     next_block_hash = rpc.getblockhash(height)
     for _ in range(num_blocks):
-        block = rpc.getblock(next_block_hash)
+        block = get_block_with_txns(next_block_hash)
         next_block_hash = block["previousblockhash"]
         blocks.append(block)
     return blocks
