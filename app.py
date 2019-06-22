@@ -8,7 +8,7 @@ def index():
     if request.method == "POST":
         print("Form submitted", request.form)
         search(request.form.get('query'))
-    blocks = get_last_blocks(3)
+    blocks = get_last_blocks(10)
     return render_template("index.html", blocks=blocks)
 
 @app.route("/block/<blockhash>")

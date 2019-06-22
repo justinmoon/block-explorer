@@ -13,7 +13,7 @@ def get_blocks(height, num_blocks):
     blocks = []
     next_block_hash = rpc.getblockhash(height)
     for _ in range(num_blocks):
-        block = get_block_with_txns(next_block_hash)
+        block = get_block(next_block_hash)
         next_block_hash = block["previousblockhash"]
         blocks.append(block)
     return blocks
