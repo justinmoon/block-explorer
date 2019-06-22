@@ -1,33 +1,26 @@
+{% from "macros.html" import jumbotron with context %}
+{% from "macros.html" import display_tx with context %}
+
 <!doctype html>
-<html>
-    <body>
-        <h1>Block</h1>
-        <ul>
-            <li>Hash: {{ block["hash"] }}</li>
-            <li>nTx: {{ block["nTx"] }} </li>
-            <li>Timestamp: {{ block["time"] }} </li>
-            <li>Confirmations: {{ block["confirmations"] }}</li>
-        </ul>
-        <h1>Transactions</h1>
-        {% for tx in block["tx"] %}
-            <h3>Tx ID: <a href="{{ '/tx/' + tx['txid'] }}">{{ tx["txid"] }}</a></h3>
-            <h5>Inputs</h5>
-            {% for vin in tx["vin"] %}
-                <ul>
-                    {% if "coinbase" in vin %}
-                    <li>Coinbase</li>
-                    {% else %}
-                    <li>Tx ID: {{ vin["txid"] }}</li>
-                    {% endif %}
-                </ul>
-            {% endfor %} 
-            <h5>Outputs</h5>
-            {% for vout in tx["vout"] %}
-                <ul>
-                    <li>Amount: {{ vout["value"] }}</li>
-                    <li>Type: {{ vout["scriptPubKey"]["type"] }}</li>
-                </ul>
-            {% endfor %}
-        {% endfor %} 
-    </body>
-</html>
+{% extends "bootstrap/base.html" %}
+{% block title %}This is an example page{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+  <!-- ... -->
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+{{ jumbotron() }}
+<h1>Block {{ block["height"] }}</h1>
+<h4>{{ block["hash"] }}</h4>
+
+<h1>Transactions</h1>
+<hr>
+{% for tx in block["tx"] %}
+{{ display_tx(tx, False) }}
+<hr>
+{% endfor %} 
+{% endblock %}
