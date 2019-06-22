@@ -1,14 +1,33 @@
-<!doctype html>
-<html>
-    <body>
-        <h1>Search:</h1>
-        <form action="http://localhost:5000" method="POST">
-            <input type="text" name="query"/>
-        </form>
+{% extends "bootstrap/base.html" %}
+{% block title %}This is an example page{% endblock %}
 
-        <h1>Blocks:</h1>
-        {% for block in blocks %}
-        <p>Hash: <a href="{{ '/block/' + block['hash'] }}">{{ block["hash"] }}</a> nTx: {{ block["nTx"] }}</p>
-        {% endfor %}
-    </body>
-</html>
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+  <!-- ... -->
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+      <h1 class="display-4">Mooniversity Explorer</h1>
+        <form action="http://localhost:5000" method="POST">
+        <div class="form-group">
+        <input type="text" class="form-control" name="query" placeholder="Search for block height, hash, or transaction">
+        </div>
+        </form>
+    </div>
+    <h1>Blocks:</h1>
+    <hr class="my-4">
+    {% for block in blocks %}
+    <p>
+        Height: <a href="{{ '/block/' + block['hash'] }}">{{ block["height"] }}</a>
+    </p>
+    <p>Timestamp: {{ block["time"] }}</p>
+    <p>Transactions: {{ block["nTx"] }}</p>
+    <p>Size [KB]: {{ block["size"] }}</p>
+    <p>Weight [KWU]: {{ block["weight"] }}</p>
+    <hr class="my-4">
+    {% endfor %}
+</div>
+{% endblock %}

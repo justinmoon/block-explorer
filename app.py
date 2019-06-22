@@ -2,8 +2,10 @@ from bitcoinrpc.authproxy import JSONRPCException
 from flask import Flask, redirect, render_template, request, url_for
 
 from explorer import get_block_with_txns, get_last_blocks_threaded, get_tx, rpc
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+Bootstrap(app)
 
 
 @app.errorhandler(ConnectionRefusedError)
