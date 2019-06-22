@@ -10,21 +10,23 @@ def handle_search(query):
         blockhash = rpc.getblockhash(int(query))
         return redirect(url_for(".block", blockhash=blockhash))
     elif query.startswith("0000"):
-        print("block hash")
+        return redirect(url_for(".block", blockhash=query))
     elif len(query) == 64:
-        print("transaction")
+        return redirect(url_for(".tx", tx_id=query))
     elif 25 < len(query) < 35:
-        print("address")
+        print("can't handle addresses yet")
+        return redirect(".index")
     else:
         print("invalid input")
-    return redirect(".index")  # placeholder
+        return redirect(".index")
 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
         print("Form submitted", request.form)
-        return handle_search(request.form.get("query"))
+        query = request.form.get("query").strip()
+        return handle_search(query)
     blocks = get_last_blocks_threaded(10)
     return render_template("index.html", blocks=blocks)
 
