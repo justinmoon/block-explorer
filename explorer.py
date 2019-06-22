@@ -1,12 +1,41 @@
+import threading
+
 from rpc import RPC
 
 rpc = RPC()
 
+
 def get_block(blockhash):
     return rpc.getblock(blockhash)
 
+
 def get_block_with_txns(blockhash):
     return rpc.getblock(blockhash, 2)
+
+
+def get_blocks_threaded(height, num_blocks):
+    def get_block_threaded(blocks, i):
+        blockhash = rpc.getblockhash(height - i)
+        print(f"fetching {blockhash}")
+        block = rpc.getblock(blockhash)
+        blocks[i] = block
+
+    blocks = [None] * 10
+    threads = [None] * 10
+    for i in range(len(threads)):
+        threads[i] = threading.Thread(target=get_block_threaded, args=(blocks, i))
+        threads[i].start()
+
+    for thread in threads:
+        thread.join()
+
+    return blocks
+
+
+def get_last_blocks_threaded(num_blocks):
+    height = rpc.getblockchaininfo()["blocks"]
+    return get_blocks_threaded(height, num_blocks)
+
 
 def get_blocks(height, num_blocks):
     """get `num_blocks` starting from `height`"""
@@ -18,22 +47,11 @@ def get_blocks(height, num_blocks):
         blocks.append(block)
     return blocks
 
+
 def get_last_blocks(num_blocks):
     height = rpc.getblockchaininfo()["blocks"]
     return get_blocks(height, num_blocks)
 
+
 def get_tx(tx_id):
     return rpc.getrawtransaction(tx_id, True)
-
-def search(query):
-    if query.isdigit():
-        print("block height")
-    elif query.startswith("0000"):
-        print("block hash")
-    elif len(query) == 64:
-        print("transaction")
-    elif 25 < len(query) < 35:
-        print("address")
-    else:
-        print("invalid input")
-
