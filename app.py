@@ -1,11 +1,14 @@
-from flask import Flask, render_template
-from explorer import get_block_with_txns, get_last_blocks, get_tx
+from flask import Flask, render_template, request
+from explorer import get_block_with_txns, get_last_blocks, get_tx, search
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def index():
-    blocks = get_last_blocks(10)
+    if request.method == "POST":
+        print("Form submitted", request.form)
+        search(request.form.get('query'))
+    blocks = get_last_blocks(3)
     return render_template("index.html", blocks=blocks)
 
 @app.route("/block/<blockhash>")

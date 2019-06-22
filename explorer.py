@@ -24,3 +24,16 @@ def get_last_blocks(num_blocks):
 
 def get_tx(tx_id):
     return rpc.getrawtransaction(tx_id, True)
+
+def search(query):
+    if query.isdigit():
+        print("block height")
+    elif query.startswith("0000"):
+        print("block hash")
+    elif len(query) == 64:
+        print("transaction")
+    elif 25 < len(query) < 35:
+        print("address")
+    else:
+        print("invalid input")
+
