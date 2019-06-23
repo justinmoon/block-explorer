@@ -1,8 +1,11 @@
+from pprint import pprint
+
 from bitcoinrpc.authproxy import JSONRPCException
 from flask import Flask, redirect, render_template, request, url_for
-
-from explorer import get_block_with_txns, get_last_blocks_threaded, get_tx, rpc
 from flask_bootstrap import Bootstrap
+
+from explorer import (get_block_with_txns, get_last_blocks_threaded,
+                      get_tx_with_inputs, rpc)
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -53,7 +56,7 @@ def block(blockhash):
 
 @app.route("/tx/<tx_id>")
 def tx(tx_id):
-    tx = get_tx(tx_id)
+    tx = get_tx_with_inputs(tx_id)
     return render_template("tx.html", tx=tx)
 
 

@@ -2,20 +2,50 @@
 {% from "macros.html" import display_tx with context %}
 
 <!doctype html>
-{% extends "bootstrap/base.html" %}
-{% block title %}This is an example page{% endblock %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{% block navbar %}
-<div class="navbar navbar-fixed-top">
-  <!-- ... -->
-</div>
-{% endblock %}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link href="/assets/fontawesome/css/all.css" rel="stylesheet"> <!--load all styles -->
+  <link href="{{ url_for('static', filename='fontawesome/css/all.css') }}" rel="stylesheet"> <!--load all styles -->
 
-{% block content %}
 
-<div class="container">
-{{ jumbotron() }}
-{{ display_tx(tx, True) }}
-</div>
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container">
+      {{ jumbotron() }}
+      {{ display_tx(tx, True) }}
 
-{% endblock %}
+      <div class="card">
+        <div class="card-header">
+          <p>Tx <a href="{{ '/tx/' + tx['txid'] }}">{{ tx["txid"] }}</a></p>
+        </div>
+
+        <div class="card-body text-center">
+          {% for vin in tx["vin"] %}
+          <span class="btn btn-primary btn-block">{{ vin["txid"] }} {{ vin["spending"]["value"] }}</span>
+          {% endfor %} 
+
+          <div >
+            <i class="fas fa-angle-down" style="font-size: 2.73em;"></i>
+          </div>
+
+          {% for vout in tx["vout"] %}
+            <div class="btn btn-primary btn-block">
+              <span class="pull-left">#{{ vout["n"] }}</span>
+              {% if "addresses" in vout["scriptPubKey"] %}
+              <span class="pull-left">#{{ vout["scriptPubKey"]["addresses"][0] }}</span>
+              {% endif %}
+              <span class="pull-right">{{ vout["value"] }} BTC</span>
+            </div>
+            <br/>
+          {% endfor %}
+
+      </div>
+  </body>
+</html>

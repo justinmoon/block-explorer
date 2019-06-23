@@ -55,3 +55,12 @@ def get_last_blocks(num_blocks):
 
 def get_tx(tx_id):
     return rpc.getrawtransaction(tx_id, True)
+
+
+def get_tx_with_inputs(tx_id):
+    tx = get_tx(tx_id)
+    for i, vin in enumerate(tx["vin"]):
+        t = get_tx(vin["txid"])
+        t_out = t["vout"][i]
+        vin["spending"] = t_out
+    return tx
