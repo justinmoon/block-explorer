@@ -36,9 +36,13 @@
       <span class="btn btn-primary btn-block">
         <div class="d-flex m-2 cl">
           <div class="item">#{{ loop.index0 }}</div>
+          {% if "coinbase" in vin %}
+          <div class="px-2 item">Coinbase</div>
+          {% else %}
           <div class="px-2 mr-auto item"> {{ vin["txid"] }}:{{ vin["vout"] }}</div>
           {% if "spending" in vin %}
-          <div class="item">{{ vin["spending"]["value"] }}</div>
+            <div class="item">{{ vin["spending"]["value"] }}</div>
+          {% endif %}
           {% endif %}
         </div>
       </span>
@@ -51,12 +55,12 @@
       {% for vout in tx["vout"] %}
       <div class="btn btn-primary btn-block">
         <div class="d-flex m-2 cl">
-          <span class="mr-auto item">#{{ vout["n"] }}</span>
+          <div class="pr-2 item">#{{ vout["n"] }}</div>
           {% if "addresses" in vout["scriptPubKey"] %}
-          <!--FIXME why is addresses a list?-->
-          <span class="item">#{{ vout["scriptPubKey"]["addresses"][0] }}</span>
+            <!--FIXME why is addresses a list?-->
+            <div class="pr-2 item">{{ vout["scriptPubKey"]["addresses"][0] }}</div>
           {% endif %}
-          <span class="item">   {{ vout["value"] }} BTC</span>
+          <div class="ml-auto item">   {{ vout["value"] }} BTC</div>
         </div>
       </div>
       <br/>

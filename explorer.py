@@ -60,7 +60,9 @@ def get_tx(tx_id):
 def get_tx_with_inputs(tx_id):
     tx = get_tx(tx_id)
     for i, vin in enumerate(tx["vin"]):
-        t = get_tx(vin["txid"])
-        t_out = t["vout"][i]
-        vin["spending"] = t_out
+        # Ignore coinbases
+        if "coinbase" not in vin:
+            t = get_tx(vin["txid"])
+            t_out = t["vout"][i]
+            vin["spending"] = t_out
     return tx
