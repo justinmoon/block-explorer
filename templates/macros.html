@@ -1,0 +1,51 @@
+{% macro jumbotron() %}
+<div class="jumbotron">
+    <h1 class="display-4">Mooniversity Explorer</h1>
+    <form action="http://localhost:5000" method="POST">
+        <div class="form-group">
+            <input type="text" class="form-control" name="query" placeholder="Search for block height, hash, or transaction">
+        </div>
+    </form>
+</div>
+{% endmacro %}
+
+{% macro display_tx(tx, verbose) %}
+<p>Tx ID: <a href="{{ '/tx/' + tx['txid'] }}">{{ tx["txid"] }}</a></p>
+
+{% if verbose %}
+<p>Confirmations: {{ tx["confirmations"] }}</p>
+{% endif %}
+
+<h5>Inputs</h5>
+{% for vin in tx["vin"] %}
+<ul>
+    {% if "coinbase" in vin %}
+    <li>Coinbase</li>
+    {% else %}
+    <li>Tx ID: {{ vin["txid"] }}</li>
+    {% endif %}
+</ul>
+{% endfor %} 
+<h5>Outputs</h5>
+{% for vout in tx["vout"] %}
+<ul>
+    <li>Amount: {{ vout["value"] }}</li>
+    <li>Type: {{ vout["scriptPubKey"]["type"] }}</li>
+</ul>
+{% endfor %}
+{% endmacro %}
+
+
+{% macro tx_row(label, data, link=None, date=False) %}
+<div class="row">
+  <div class="col-4"><h5>{{ label }}</h5></div>
+  <div class="col-8 text-right" style="word-break: break-word;">
+    {% if link %}
+    <h5><a href="{{ link }}">{{ data }}</a></h5>
+    {% else %}
+    <h5>{{ data }}</h5>
+    {% endif %}
+  </div>
+</div>
+<hr/>
+{% endmacro %}

@@ -1,5 +1,5 @@
 {% from "macros.html" import jumbotron with context %}
-{% from "macros.html" import display_tx with context %}
+{% from "macros.html" import tx_row with context %}
 
 <!doctype html>
 <html lang="en">
@@ -11,7 +11,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <link href="/assets/fontawesome/css/all.css" rel="stylesheet"> <!--load all styles -->
-  <link href="{{ url_for('static', filename='fontawesome/css/all.css') }}" rel="stylesheet"> <!--load all styles -->
+  <link href="{{ url_for('static', filename='fontawesome/css/all.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='main.css') }}" rel="stylesheet">
+
 
 
     <title>Hello, world!</title>
@@ -19,7 +21,27 @@
   <body>
     <div class="container">
       {{ jumbotron() }}
-      {{ display_tx(tx, True) }}
+
+      <hr/>
+      {{ tx_row("STATUS", tx["confirmations"]) }}
+      {{ tx_row("INCLUDED IN BLOCK", tx["blockhash"], 
+                link=url_for('.block', blockhash=tx['blockhash'])) }}
+
+      <!--skip BLOCK HEIGHT b/c that's not readily available-->
+
+      {{ tx_row("BLOCK TIMESTAMP", tx["blocktime"]) }}
+
+      <!--skip TRANSACTION FEES b/c that's not readily available-->
+
+      <!--TODO: add units for these two-->
+      {{ tx_row("SIZE", tx["size"]) }}
+      {{ tx_row("VIRTUAL SIZE", tx["vsize"]) }}
+      {{ tx_row("WEIGHT UNITS", tx["weight"]) }}
+
+      {{ tx_row("VERSION", tx["version"]) }}
+      {{ tx_row("LOCKTIME", tx["locktime"]) }}
+
+      <div class="d-flex m-2 cl">
 
       <div class="card">
         <div class="card-header">
@@ -28,7 +50,13 @@
 
         <div class="card-body text-center">
           {% for vin in tx["vin"] %}
-          <span class="btn btn-primary btn-block">{{ vin["txid"] }} {{ vin["spending"]["value"] }}</span>
+          <span class="btn btn-primary btn-block">
+            <div class="d-flex m-2 cl">
+              <div class="item">#{{ loop.index0 }}</div>
+              <div class="px-2 mr-auto item"> {{ vin["txid"] }}:{{ vin["vout"] }}</div>
+              <div class="item">{{ vin["spending"]["value"] }}</div>
+            </div>
+          </span>
           {% endfor %} 
 
           <div >
@@ -37,11 +65,14 @@
 
           {% for vout in tx["vout"] %}
             <div class="btn btn-primary btn-block">
-              <span class="pull-left">#{{ vout["n"] }}</span>
+              <div class="d-flex m-2 cl">
+              <span class="mr-auto item">#{{ vout["n"] }}</span>
               {% if "addresses" in vout["scriptPubKey"] %}
-              <span class="pull-left">#{{ vout["scriptPubKey"]["addresses"][0] }}</span>
+              <!--FIXME why is addresses a list?-->
+              <span class="item">#{{ vout["scriptPubKey"]["addresses"][0] }}</span>
               {% endif %}
-              <span class="pull-right">{{ vout["value"] }} BTC</span>
+              <span class="item">   {{ vout["value"] }} BTC</span>
+              </div>
             </div>
             <br/>
           {% endfor %}
