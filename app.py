@@ -11,29 +11,29 @@ app = Flask(__name__)
 
 @app.errorhandler(ConnectionRefusedError)
 def handle_connection_refused(e):
-    return redirect(url_for(".error", msg="bitcoin RPC failed"))
+    return redirect(url_for("error", msg="bitcoin RPC failed"))
 
 
 @app.errorhandler(JSONRPCException)
 def handle_rpc_error(e):
-    return redirect(url_for(".error", msg=e.message))
+    return redirect(url_for("error", msg=e.message))
 
 
 def handle_search(query):
     if query.isdigit():
         blockhash = rpc.getblockhash(int(query))
-        return redirect(url_for(".block", blockhash=blockhash))
+        return redirect(url_for("block", blockhash=blockhash))
     elif query.startswith("0000"):
-        return redirect(url_for(".block", blockhash=query))
+        return redirect(url_for("block", blockhash=query))
     elif len(query) == 64:
-        return redirect(url_for(".tx", tx_id=query))
+        return redirect(url_for("tx", tx_id=query))
     elif 25 < len(query) < 35:
         print("can't handle addresses yet")
-        return redirect(".index")
+        return redirect(url_for("error"))
     else:
         # we should display some kind of error ...
         print("invalid input")
-        return redirect(".index")
+        return redirect(url_for("error", msg="No results found"))
 
 
 @app.route("/", methods=["GET", "POST"])
