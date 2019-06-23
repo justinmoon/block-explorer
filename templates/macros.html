@@ -1,14 +1,3 @@
-{% macro jumbotron() %}
-<div class="jumbotron">
-    <h1 class="display-4">Mooniversity Explorer</h1>
-    <form action="http://localhost:5000" method="POST">
-        <div class="form-group">
-            <input type="text" class="form-control" name="query" placeholder="Search for block height, hash, or transaction">
-        </div>
-    </form>
-</div>
-{% endmacro %}
-
 {% macro display_tx(tx, verbose) %}
 <p>Tx ID: <a href="{{ '/tx/' + tx['txid'] }}">{{ tx["txid"] }}</a></p>
 
@@ -35,8 +24,49 @@
 {% endfor %}
 {% endmacro %}
 
+{% macro tx_widget(tx) %}
+  <div class="card my-4">
+    <div class="card-header">
+      <p>Tx <a href="{{ '/tx/' + tx['txid'] }}">{{ tx["txid"] }}</a></p>
+    </div>
 
-{% macro tx_row(label, data, link=None, date=False) %}
+    <div class="card-body text-center">
+
+      {% for vin in tx["vin"] %}
+      <span class="btn btn-primary btn-block">
+        <div class="d-flex m-2 cl">
+          <div class="item">#{{ loop.index0 }}</div>
+          <div class="px-2 mr-auto item"> {{ vin["txid"] }}:{{ vin["vout"] }}</div>
+          {% if "spending" in vin %}
+          <div class="item">{{ vin["spending"]["value"] }}</div>
+          {% endif %}
+        </div>
+      </span>
+      {% endfor %} 
+
+      <div >
+        <i class="fas fa-angle-down" style="font-size: 2.73em;"></i>
+      </div>
+
+      {% for vout in tx["vout"] %}
+      <div class="btn btn-primary btn-block">
+        <div class="d-flex m-2 cl">
+          <span class="mr-auto item">#{{ vout["n"] }}</span>
+          {% if "addresses" in vout["scriptPubKey"] %}
+          <!--FIXME why is addresses a list?-->
+          <span class="item">#{{ vout["scriptPubKey"]["addresses"][0] }}</span>
+          {% endif %}
+          <span class="item">   {{ vout["value"] }} BTC</span>
+        </div>
+      </div>
+      <br/>
+      {% endfor %}
+
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro row(label, data, link=None) %}
 <div class="row">
   <div class="col-4"><h5>{{ label }}</h5></div>
   <div class="col-8 text-right" style="word-break: break-word;">
@@ -47,5 +77,4 @@
     {% endif %}
   </div>
 </div>
-<hr/>
 {% endmacro %}

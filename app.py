@@ -2,13 +2,11 @@ from pprint import pprint
 
 from bitcoinrpc.authproxy import JSONRPCException
 from flask import Flask, redirect, render_template, request, url_for
-from flask_bootstrap import Bootstrap
 
 from explorer import (get_block_with_txns, get_last_blocks_threaded,
                       get_tx_with_inputs, rpc)
 
 app = Flask(__name__)
-Bootstrap(app)
 
 
 @app.errorhandler(ConnectionRefusedError)
@@ -41,7 +39,6 @@ def handle_search(query):
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        print("Form submitted", request.form)
         query = request.form.get("query").strip()
         return handle_search(query)
     blocks = get_last_blocks_threaded(10)

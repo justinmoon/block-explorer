@@ -1,26 +1,31 @@
-{% from "macros.html" import jumbotron with context %}
-{% from "macros.html" import display_tx with context %}
+{% extends "layout.html" %}
+
+{% from "macros.html" import tx_widget, row with context %}
 
 <!doctype html>
-{% extends "bootstrap/base.html" %}
-{% block title %}This is an example page{% endblock %}
+{% block title %}Blocks{% endblock %}
 
-{% block navbar %}
-<div class="navbar navbar-fixed-top">
-  <!-- ... -->
-</div>
+{% block jumbotron_bottom %}
+<h3><i class="fas fa-cube"></i> Block {{ block["height"] }}</h3>
+<h5 style="word-break: break-word;">{{ block["hash"] }}</h5>
 {% endblock %}
+
 
 {% block content %}
 <div class="container">
-{{ jumbotron() }}
-<h1>Block {{ block["height"] }}</h1>
-<h4>{{ block["hash"] }}</h4>
 
-<h1>Transactions</h1>
-<hr>
-{% for tx in block["tx"] %}
-{{ display_tx(tx, False) }}
-<hr>
-{% endfor %} 
+  {{ row("HEIGHT", block["height"]) }}<hr/>
+  {{ row("STATUS", block["confirmations"]) }}<hr/>
+  {{ row("TIMESTAMP", block["time"]) }}<hr/>
+  {{ row("SIZE", block["size"]) }}<hr/>
+  <!-- https://bitcoin.stackexchange.com/questions/67113/how-does-segwit-reduce-transaction-size-when-the-signature-is-simply-moved-to-a/67115#67115 -->
+  {{ row("VIRTUAL SIZE", (block["weight"] | int) / 4) }}<hr/>
+  {{ row("WEIGHT UNITS", block["weight"]) }}<hr/>
+
+  <h1>{{ block["nTx"] }} Transactions</h1>
+
+  {% for tx in block["tx"][:4] %}
+    {{ tx_widget(tx) }}
+  {% endfor %} 
+</div>
 {% endblock %}

@@ -1,33 +1,28 @@
-{% extends "bootstrap/base.html" %}
-{% block title %}This is an example page{% endblock %}
+{% extends "layout.html" %}
+{% from "macros.html" import tx_widget, row with context %}
+
+{% block title %}Mooniversity Explorer{% endblock %}
 
 {% block navbar %}
-<div class="navbar navbar-fixed-top">
-    <!-- ... -->
-</div>
+{% endblock %}
+
+{% block jumbotron_top %}
+  <h1>
+    <img class="bitcoin" src="{{ url_for('static', filename='bitcoin.svg') }}">
+    Mooniversity Explorer
+  </h1>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="jumbotron">
-        <h1 class="display-4">Mooniversity Explorer</h1>
-        <form action="http://localhost:5000" method="POST">
-            <div class="form-group">
-                <input type="text" class="form-control" name="query" placeholder="Search for block height, hash, or transaction">
-            </div>
-        </form>
-    </div>
-    <h1>Blocks:</h1>
-    <hr class="my-4">
-    {% for block in blocks %}
-    <p>
-    Height: <a href="{{ '/block/' + block['hash'] }}">{{ block["height"] }}</a>
-    </p>
-    <p>Timestamp: {{ block["time"] }}</p>
-    <p>Transactions: {{ block["nTx"] }}</p>
-    <p>Size [KB]: {{ block["size"] }}</p>
-    <p>Weight [KWU]: {{ block["weight"] }}</p>
-    <hr class="my-4">
-    {% endfor %}
+  {% for block in blocks %}
+  {{ row("HEIGHT", block["height"], link=url_for('.block', blockhash=block['hash'])) }}
+  {{ row("STATUS", block["confirmations"]) }}
+  {{ row("TIMESTAMP", block["time"]) }}
+  {{ row("SIZE", block["size"]) }}
+  {{ row("WEIGHT UNITS", block["weight"]) }}
+  <hr/>
+  {% endfor %}
+
 </div>
 {% endblock %}
