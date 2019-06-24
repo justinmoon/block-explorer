@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from bitcoinrpc.authproxy import JSONRPCException
 from flask import Flask, redirect, render_template, request, url_for
 
@@ -64,4 +62,4 @@ def error(msg=None):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

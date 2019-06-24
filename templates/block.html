@@ -24,7 +24,7 @@
 
   <h1>{{ block["nTx"] }} Transactions</h1>
 
-  {% for tx in block["tx"][:4] %}
+  {% for tx in block["tx"] %}
     {{ tx_widget(tx) }}
   {% endfor %} 
 </div>

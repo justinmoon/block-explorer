@@ -1,8 +1,8 @@
 import threading
 
-from rpc import RPC
+from rpc import BTCD
 
-rpc = RPC()
+rpc = BTCD()
 
 
 def get_block(blockhash):
@@ -10,7 +10,13 @@ def get_block(blockhash):
 
 
 def get_block_with_txns(blockhash):
-    return rpc.getblock(blockhash, 2)
+    # bitcoind
+    # return rpc.getblock(blockhash, 2)
+
+    # btcd
+    r = rpc.getblock(blockhash, True, True)
+    r['tx'] = r.pop('rawtx')
+    return r
 
 
 def get_blocks_threaded(height, num_blocks):
@@ -54,7 +60,7 @@ def get_last_blocks(num_blocks):
 
 
 def get_tx(tx_id):
-    return rpc.getrawtransaction(tx_id, True)
+    return rpc.getrawtransaction(tx_id, 1)  # btcd demands an integer
 
 
 def get_tx_with_inputs(tx_id):
