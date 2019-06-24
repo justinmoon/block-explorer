@@ -1,7 +1,7 @@
 {% macro tx_widget(tx) %}
 <span class="border grey rounded box border-3 p-3 my-3">
 
-  <p>Tx <a href="{{ url_for('tx', tx_id=tx['txid']) }}">
+  <p>Tx <a href="{{ url_for('.tx', tx_id=tx['txid']) }}">
     {{ tx["txid"] }}
   </a></p>
 

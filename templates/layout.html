@@ -11,15 +11,33 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <!--Fontawesome for icons-->
-    <link href="{{ url_for('static', filename='fontawesome/css/all.css') }}" rel="stylesheet">
+    <link href="{{ url_for('.static', filename='fontawesome/css/all.css') }}" rel="stylesheet">
     <!--Our custom CSS-->
-    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+    <link href="{{ url_for('.static', filename='styles.css') }}" rel="stylesheet">
 
     <title>{% block title %}{% endblock %}</title>
     {% endblock %}
   </head>
   <body>
-    <div id="navbar">{% block navbar %}{% endblock %}</div>
+    <div id="navbar" class="container">
+
+        <nav class="navbar navbar-expand navbar-light bg-white">
+
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0 text-center">
+              <li class="nav-item {{ 'active' if 'testnet' not in request.path }}">
+                <a class="nav-link" href="/">Bitcoin</a>
+              </li>
+              <li class="nav-item {{ 'active' if 'testnet' in request.path }}">
+                <a class="nav-link" href="/testnet">Testnet</a>
+              </li>
+            </ul>
+          </div>
+
+        </nav>
+
+        {% block navbar %}{% endblock %}
+    </div>
 
     <div id="jumbotron" class="container">
       <div class="jumbotron">
