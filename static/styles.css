@@ -6,9 +6,9 @@
 
 .border {
   display: inline-block;
-  width: 70px;
-  height: 70px;
-  margin: 6px;
+  /*width: 70px;*/
+  /*height: 70px;*/
+  /*margin: 6px;*/
 }
 
 .border-3 {
@@ -22,4 +22,33 @@
 
 .wrap {
   word-break: break-word;
+}
+
+.grey {
+  border-color: #E9ECEF;
+}
+
+hr {
+  border-width:3px !important;
+  color: #E9ECEF;
+}
+
+p {
+  color: #6C757D;
+}
+
+span {
+  color: #6C757D;
+}
+
+.bigger {
+  font-size: 20;
+}
+
+body {
+  font-weight: bolder;
+}
+
+h3 {
+  font-weight: bold;
 }

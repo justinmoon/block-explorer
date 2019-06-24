@@ -1,92 +1,64 @@
-{% macro display_tx(tx, verbose) %}
-<p>Tx ID: <a href="{{ '/tx/' + tx['txid'] }}">{{ tx["txid"] }}</a></p>
-
-{% if verbose %}
-<p>Confirmations: {{ tx["confirmations"] }}</p>
-{% endif %}
-
-<h5>Inputs</h5>
-{% for vin in tx["vin"] %}
-<ul>
-    {% if "coinbase" in vin %}
-    <li>Coinbase</li>
-    {% else %}
-    <li>Tx ID: {{ vin["txid"] }}</li>
-    {% endif %}
-</ul>
-{% endfor %} 
-<h5>Outputs</h5>
-{% for vout in tx["vout"] %}
-<ul>
-    <li>Amount: {{ vout["value"] }}</li>
-    <li>Type: {{ vout["scriptPubKey"]["type"] }}</li>
-</ul>
-{% endfor %}
-{% endmacro %}
-
 {% macro tx_widget(tx) %}
-  <div class="card my-4">
-    <div class="card-header">
-      <p>Tx <a href="{{ '/tx/' + tx['txid'] }}">{{ tx["txid"] }}</a></p>
-    </div>
+<span class="border grey rounded box border-3 p-3 my-3">
+  <p>Tx <a href="{{ url_for('tx', tx_id=tx['txid']) }}">
+    {{ tx["txid"] }}
+  </a></p>
 
-    <div class="card-body text-center">
-
-      {% for vin in tx["vin"] %}
-      <!--<span class="border border-primary rounded box border-3">-->
-      <span class="btn btn-primary btn-block">
-        <div class="row">
-          <div class="col-8 text-left wrap">
-            <span>#{{ loop.index0 }}</span>
-            {% if "coinbase" in vin %}
-              <span>Coinbase</span>
-            {% else %}
-              <span>{{ vin["txid"] }}:{{ vin["vout"] }}</span>
-            {% endif %}
-          </div>
-          <div class="col-4 text-right wrap"> 
-            {% if "spending" in vin %}
-              <span class="text-right">{{ vin["spending"]["value"] }} BTC</span>
-            {% endif %}
-          </div>
-        </div>
-      </span>
-      {% endfor %} 
-
-      <div >
-        <i class="fas fa-angle-down" style="font-size: 2.73em;"></i>
+  {% for vin in tx["vin"] %}
+  <span class="border grey rounded box border-3 p-3">
+  <!--<span class="btn btn-primary btn-block">-->
+    <div class="row">
+      <div class="col-8 text-left wrap">
+        <span>#{{ loop.index0 }}</span>
+        {% if "coinbase" in vin %}
+          <span>Coinbase</span>
+        {% else %}
+          <span>{{ vin["txid"] }}:{{ vin["vout"] }}</span>
+        {% endif %}
       </div>
-
-      {% for vout in tx["vout"] %}
-      <div class="btn btn-primary btn-block">
-        <div class="row">
-          <div class="col-8 text-left wrap">
-            <span>#{{ vout["n"] }}</span>
-            {% if "addresses" in vout["scriptPubKey"] %}
-              <!--FIXME why is addresses a list?-->
-              <span>{{ vout["scriptPubKey"]["addresses"][0] }}</span>
-            {% endif %}
-          </div>
-          <div class="col-4 text-right wrap">
-            {{ vout["value"] }} BTC
-          </div>
-        </div>
+      <div class="col-4 text-right wrap"> 
+        {% if "spending" in vin %}
+          <span class="text-right">{{ vin["spending"]["value"] }} BTC</span>
+        {% endif %}
       </div>
-      <br/>
-      {% endfor %}
-
     </div>
+  </span>
+  {% endfor %} 
+
+  <div class="text-center">
+    <i class="fas fa-angle-down" style="font-size: 2.73em;"></i>
   </div>
+
+  {% for vout in tx["vout"] %}
+  <span class="border grey rounded box border-3 p-3 {{ "mt-3" if loop.index0 else "" }}">
+    <div class="row">
+      <div class="col-8 text-left wrap">
+        <span>#{{ vout["n"] }}</span>
+        {% if "addresses" in vout["scriptPubKey"] %}
+          <!--FIXME why is addresses a list?-->
+          <span>{{ vout["scriptPubKey"]["addresses"][0] }}</span>
+        {% elif "OP_RETURN" in vout["scriptPubKey"]["asm"] %}
+          <span>OP_RETURN</span>
+        {% endif %}
+      </div>
+      <div class="col-4 text-right wrap">
+        {{ vout["value"] }} BTC
+      </div>
+    </div>
+  </span>
+  {% endfor %}
+
+</span>
 {% endmacro %}
 
 {% macro row(label, data, link=None) %}
 <div class="row">
-  <div class="col-4 wrap"><h5>{{ label }}</h5></div>
+  <div class="col-4 wrap"><span class="bigger">{{ label }}</span></div>
   <div class="col-8 text-right wrap">
     {% if link %}
-    <h5><a href="{{ link }}">{{ data }}</a></h5>
+    <span class="bigger"><a href="{{ link }}">{{ data }}</a></span>
     {% else %}
-    <h5>{{ data }}</h5>
+    <span class="bigger">{{ data }}</span>
     {% endif %}
   </div>
 </div>

@@ -11,23 +11,23 @@
 
 {% block content %}
 <div class="container">
-  <hr/>
-  {{ row("STATUS", tx["confirmations"]) }}
+
+  {{ row("STATUS", tx["confirmations"]) }}<hr/>
   {{ row("INCLUDED IN BLOCK", tx["blockhash"], 
-            link=url_for('.block', blockhash=tx['blockhash'])) }}
+  link=url_for('.block', blockhash=tx['blockhash'])) }}<hr/>
 
   <!--skip BLOCK HEIGHT b/c that's not readily available-->
 
-  {{ row("BLOCK TIMESTAMP", tx["blocktime"]) }}
+  {{ row("BLOCK TIMESTAMP", tx["blocktime"]) }}<hr/>
 
   <!--skip TRANSACTION FEES b/c that's not readily available-->
 
   <!--TODO: add units for these two-->
-  {{ row("SIZE", tx["size"]) }}
-  {{ row("VIRTUAL SIZE", tx["vsize"]) }}
-  {{ row("WEIGHT UNITS", tx["weight"]) }}
+  {{ row("SIZE", tx["size"]) }}<hr/>
+  {{ row("VIRTUAL SIZE", tx["vsize"]) }}<hr/>
+  {{ row("WEIGHT UNITS", tx["weight"]) }}<hr/>
 
-  {{ row("VERSION", tx["version"]) }}
+  {{ row("VERSION", tx["version"]) }}<hr/>
   {{ row("LOCKTIME", tx["locktime"]) }}
 
   {{ tx_widget(tx) }}
