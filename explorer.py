@@ -63,6 +63,6 @@ def get_tx_with_inputs(tx_id):
         # Ignore coinbases
         if "coinbase" not in vin:
             t = get_tx(vin["txid"])
-            t_out = t["vout"][i]
-            vin["spending"] = t_out
+            utxo = t["vout"][vin["vout"]]
+            vin["spending"] = utxo
     return tx
