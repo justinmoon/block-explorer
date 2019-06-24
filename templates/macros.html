@@ -33,17 +33,22 @@
     <div class="card-body text-center">
 
       {% for vin in tx["vin"] %}
+      <!--<span class="border border-primary rounded box border-3">-->
       <span class="btn btn-primary btn-block">
-        <div class="d-flex m-2 cl">
-          <div class="item">#{{ loop.index0 }}</div>
-          {% if "coinbase" in vin %}
-          <div class="px-2 item">Coinbase</div>
-          {% else %}
-          <div class="px-2 mr-auto item"> {{ vin["txid"] }}:{{ vin["vout"] }}</div>
-          {% if "spending" in vin %}
-            <div class="item">{{ vin["spending"]["value"] }}</div>
-          {% endif %}
-          {% endif %}
+        <div class="row">
+          <div class="col-8 text-left wrap">
+            <span>#{{ loop.index0 }}</span>
+            {% if "coinbase" in vin %}
+              <span>Coinbase</span>
+            {% else %}
+              <span>{{ vin["txid"] }}:{{ vin["vout"] }}</span>
+            {% endif %}
+          </div>
+          <div class="col-4 text-right wrap"> 
+            {% if "spending" in vin %}
+              <span class="text-right">{{ vin["spending"]["value"] }} BTC</span>
+            {% endif %}
+          </div>
         </div>
       </span>
       {% endfor %} 
@@ -54,13 +59,17 @@
 
       {% for vout in tx["vout"] %}
       <div class="btn btn-primary btn-block">
-        <div class="d-flex m-2 cl">
-          <div class="pr-2 item">#{{ vout["n"] }}</div>
-          {% if "addresses" in vout["scriptPubKey"] %}
-            <!--FIXME why is addresses a list?-->
-            <div class="pr-2 item">{{ vout["scriptPubKey"]["addresses"][0] }}</div>
-          {% endif %}
-          <div class="ml-auto item">   {{ vout["value"] }} BTC</div>
+        <div class="row">
+          <div class="col-8 text-left wrap">
+            <span>#{{ vout["n"] }}</span>
+            {% if "addresses" in vout["scriptPubKey"] %}
+              <!--FIXME why is addresses a list?-->
+              <span>{{ vout["scriptPubKey"]["addresses"][0] }}</span>
+            {% endif %}
+          </div>
+          <div class="col-4 text-right wrap">
+            {{ vout["value"] }} BTC
+          </div>
         </div>
       </div>
       <br/>
@@ -72,8 +81,8 @@
 
 {% macro row(label, data, link=None) %}
 <div class="row">
-  <div class="col-4"><h5>{{ label }}</h5></div>
-  <div class="col-8 text-right" style="word-break: break-word;">
+  <div class="col-4 wrap"><h5>{{ label }}</h5></div>
+  <div class="col-8 text-right wrap">
     {% if link %}
     <h5><a href="{{ link }}">{{ data }}</a></h5>
     {% else %}

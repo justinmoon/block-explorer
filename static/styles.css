@@ -1,5 +1,25 @@
 .bitcoin {
-    height: 35px;
-    width: auto;
-    margin-bottom: 7px;
+  height: 35px;
+  width: auto;
+  margin-bottom: 7px;
+}
+
+.border {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  margin: 6px;
+}
+
+.border-3 {
+  border-width:3px !important;
+}
+
+.box {
+  display: block;
+  width: 100%;
+}
+
+.wrap {
+  word-break: break-word;
 }
