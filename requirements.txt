@@ -1,4 +1,4 @@
 dynaconf==2.0.2
 Flask==1.0.3
-python-bitcoinrpc==1.0
+git+https://github.com/justinmoon/python-bitcoinrpc
 toml==0.10.0
