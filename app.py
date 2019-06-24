@@ -2,7 +2,7 @@ from bitcoinrpc.authproxy import JSONRPCException
 from flask import Flask, redirect, render_template, request, url_for
 
 from explorer import (get_block_with_txns, get_last_blocks_threaded,
-                      get_tx_with_inputs, rpc)
+                      get_tx_with_inputs, rpc, get_tx_for_address)
 
 app = Flask(__name__)
 
@@ -26,8 +26,7 @@ def handle_search(query):
     elif len(query) == 64:
         return redirect(url_for("tx", tx_id=query))
     elif 25 < len(query) < 35:
-        print("can't handle addresses yet")
-        return redirect(url_for("error"))
+        return redirect(url_for("address", address=query))
     else:
         # we should display some kind of error ...
         print("invalid input")
@@ -53,6 +52,12 @@ def block(blockhash):
 def tx(tx_id):
     tx = get_tx_with_inputs(tx_id)
     return render_template("tx.html", tx=tx)
+
+
+@app.route("/address/<address>")
+def address(address):
+    txns = get_tx_for_address(address)
+    return render_template("address.html", address=address, txns=txns)
 
 
 @app.route("/error")

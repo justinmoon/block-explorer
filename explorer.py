@@ -72,3 +72,7 @@ def get_tx_with_inputs(tx_id):
             utxo = t["vout"][vin["vout"]]
             vin["spending"] = utxo
     return tx
+
+
+def get_tx_for_address(address):
+    return rpc.searchrawtransactions(address)
