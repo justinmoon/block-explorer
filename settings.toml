@@ -1,0 +1,17 @@
+[bitcoind]
+USERNAME = "bitcoin"
+PASSWORD = "python"
+HOST = "mainnet.mooniversity.io"
+PORT = 8332
+
+[testnet]
+USERNAME = "bitcoin"
+PASSWORD = "python"
+HOST = "testnet.mooniversity.io"
+PORT = 18332
+
+[btcd]
+USERNAME = "bitcoin"
+PASSWORD = "python"
+HOST = "btcd.mooniversity.io"
+PORT = 8334
