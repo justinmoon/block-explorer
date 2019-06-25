@@ -1,6 +1,6 @@
 import time
 
-from explorer import get_last_blocks, get_last_blocks_threaded
+from helpers import get_last_blocks, get_last_blocks_threaded
 
 
 def profile_get_last_blocks():

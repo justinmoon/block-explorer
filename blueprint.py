@@ -1,8 +1,7 @@
 from bitcoinrpc.authproxy import JSONRPCException
 from flask import Blueprint, redirect, render_template, request, url_for
-
-from explorer import (get_block_with_txns, get_last_blocks_threaded,
-                      get_tx_with_inputs, rpc, get_tx_for_address, get_last_blocks)
+from helpers import (get_block_with_txns, get_last_blocks_threaded,
+                     get_tx_with_inputs, rpc, get_tx_for_address, get_last_blocks)
 
 blueprint = Blueprint('explorer', __name__, 
         static_folder='static', template_folder='templates')

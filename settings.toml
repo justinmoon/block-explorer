@@ -1,25 +1,29 @@
 [bitcoind]
 
 [bitcoind.mainnet]
+TRANSPORT = "http"
 USERNAME = "bitcoin"
 PASSWORD = "python"
-HOST = "bitcoind.mooniversity.io"
+HOST = "68.183.110.103"
 PORT = 8332
 
 [bitcoind.testnet]
+TRANSPORT = "http"
 USERNAME = "bitcoin"
 PASSWORD = "python"
-HOST = "bitcoind.mooniversity.io"
+HOST = "68.183.110.103"
 PORT = 18332
 
 [btcd.mainnet]
+TRANSPORT = "https"
 USERNAME = "bitcoin"
 PASSWORD = "python"
-HOST = "btcd.mooniversity.io"
+HOST = "157.230.174.30"
 PORT = 8334
 
 [btcd.testnet]
+TRANSPORT = "https"
 USERNAME = "bitcoin"
 PASSWORD = "python"
-HOST = "btcd.mooniversity.io"
+HOST = "157.230.174.30"
 PORT = 18334

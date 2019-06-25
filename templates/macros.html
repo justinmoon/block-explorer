@@ -1,4 +1,5 @@
 {% macro tx_widget(tx) %}
+<!--FIXME: why are these border / grey / etc classes repeated?-->
 <span class="border grey rounded box border-3 p-3 my-3">
 
   <p>Tx <a href="{{ url_for('.tx', tx_id=tx['txid']) }}">
@@ -6,7 +7,7 @@
   </a></p>
 
   {% for vin in tx["vin"] %}
-  <span class="border grey rounded box border-3 p-3">
+  <span class="border grey rounded box border-3 p-3 {{ 'mt-3' if loop.index0 else '' }}">
   <!--<span class="btn btn-primary btn-block">-->
     <div class="row">
       <div class="col-8 text-left wrap">
@@ -31,7 +32,7 @@
   </div>
 
   {% for vout in tx["vout"] %}
-  <span class="border grey rounded box border-3 p-3 {{ "mt-3" if loop.index0 else "" }}">
+  <span class="border grey rounded box border-3 p-3 {{ 'mt-3' if loop.index0 else '' }}">
     <div class="row">
       <div class="col-8 text-left wrap">
         <span>#{{ vout["n"] }}</span>

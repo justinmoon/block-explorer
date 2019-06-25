@@ -23,7 +23,7 @@
 
         <nav class="navbar navbar-expand navbar-light bg-white">
 
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0 text-center">
               <li class="nav-item {{ 'active' if 'testnet' not in request.path }}">
                 <a class="nav-link" href="/">Bitcoin</a>
@@ -52,13 +52,15 @@
       </div>
     </div>
 
-    <div id="content">{% block content %}{% endblock %}</div>
+    <div class="content">{% block content %}{% endblock %}</div>
 
-    <div id="footer">
-      {% block footer %}
-      &copy; Copyright 2010 by <a href="http://domain.invalid/">you</a>.
-      {% endblock %}
-    </div>
+    <footer class="footer">
+      <div class="container">
+        <span class="float-right">
+          Made by Justin Moon
+        </span>
+      </div>
+    </footer>
 
   </body>
 </html>

@@ -1,8 +1,9 @@
-import threading
+import threading, os
 
-from rpc import RPC
+from rpc import RPCRouter
 
-rpc = RPC()
+
+rpc = RPCRouter(os.environ.get('NODE', 'bitcoind'))
 
 
 def get_block(blockhash):
@@ -10,24 +11,23 @@ def get_block(blockhash):
 
 
 def get_block_with_txns(blockhash):
-    # bitcoind
-    return rpc.getblock(blockhash, 2)
-
-    # btcd
-    # r = rpc.getblock(blockhash, True, True)
-    # r['tx'] = r.pop('rawtx')
-    # return r
+    if rpc.node == 'bitcoind':
+        return rpc.getblock(blockhash, 2)
+    else:
+        r = rpc.getblock(blockhash, True, True)
+        r['tx'] = r.pop('rawtx')
+        return r
 
 
 def get_blocks_threaded(height, num_blocks):
     def get_block_threaded(blocks, i):
         blockhash = rpc.getblockhash(height - i)
-        print(f"fetching {blockhash}")
         block = rpc.getblock(blockhash)
         blocks[i] = block
 
-    blocks = [None] * 10
-    threads = [None] * 10
+    blocks = [None] * num_blocks
+    threads = [None] * num_blocks
+
     for i in range(len(threads)):
         threads[i] = threading.Thread(target=get_block_threaded, args=(blocks, i))
         threads[i].start()
@@ -60,7 +60,9 @@ def get_last_blocks(num_blocks):
 
 
 def get_tx(tx_id):
-    return rpc.getrawtransaction(tx_id, 1)  # btcd demands an integer
+    # btcd demands an integer
+    # TODO: explore this and patch either python-jsonrpc or btcd ...
+    return rpc.getrawtransaction(tx_id, 1)  
 
 
 def get_tx_with_inputs(tx_id):
