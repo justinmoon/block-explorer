@@ -53,15 +53,14 @@
 </span>
 {% endmacro %}
 
-{% macro row(label, data, link=None) %}
-<div class="row">
-  <div class="col-4 wrap"><span class="bigger">{{ label }}</span></div>
-  <div class="col-8 text-right wrap">
-    {% if link %}
-    <span class="bigger"><a href="{{ link }}">{{ data }}</a></span>
-    {% else %}
-    <span class="bigger">{{ data }}</span>
-    {% endif %}
-  </div>
+{% macro row(label, data, unit="", link=None) %}
+<div class="d-flex">
+  <span class="mr-auto p-2 row-text">{{ label }}</span>
+  {% if link %}
+    <span class="p-2 row-text"><a href="{{ link }}">{{ data }}</a></span>
+  {% else %}
+    <span class="p-2 row-text">{{ data }} {{ unit }}</span>
+  {% endif %}
 </div>
 {% endmacro %}
+

@@ -8,21 +8,81 @@
 
 {% block jumbotron_top %}
   <h1>
-    <img class="bitcoin" src="{{ url_for('.static', filename='bitcoin.svg') }}">
     Mooniversity Explorer
   </h1>
 {% endblock %}
 
 {% block content %}
-<div class="container">
-  {% for block in blocks %}
-  {{ row("HEIGHT", block["height"], link=url_for('.block', blockhash=block['hash'])) }}
-  {{ row("STATUS", block["confirmations"]) }}
-  {{ row("TIMESTAMP", block["time"]) }}
-  {{ row("SIZE", block["size"]) }}
-  {{ row("WEIGHT UNITS", block["weight"]) }}
-  <hr/>
-  {% endfor %}
 
+<!--small screens-->
+<div class="container d-none">
+  <div class="d-flex flex-column">
+  {% for block in blocks %}
+    {{ row("HEIGHT", block["height"], link=url_for('.block', blockhash=block['hash'])) }}
+    {{ row("STATUS", block["confirmations"], unit="confirmations") }}
+    {{ row("TIMESTAMP", block["time"]) }}
+    {{ row("SIZE", block["size"], unit="KB") }}
+    {{ row("WEIGHT UNITS", block["weight"], unit="KWU") }}
+    <hr/>
+  {% endfor %}
+  </div>
 </div>
+
+
+<div class="container d-block d-lg-none">
+  {% for block in blocks %}
+  <table class="table table-bordered">
+    <tr>
+      <th>Height</th>
+      <td class="text-right">
+        <a href="{{ url_for('.block', blockhash=block['hash']) }}">
+          {{ block["height"] }}
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <th>Status</th>
+      <td class="text-right">{{ block["confirmations"] }} confirmations</td>
+    </tr>
+    <tr>
+      <th>Timestamp</th>
+      <td class="text-right">{{ block["time"] }} confirmations</td>
+    </tr>
+    <tr>
+      <th>size</th>
+      <td class="text-right">{{ block["size"] }} KB</td>
+    </tr>
+    <tr>
+      <th>Weight Units</th>
+      <td class="text-right">{{ block["weight"] }} KWU</td>
+    </tr>
+  </table>
+  {% endfor %}
+</div>
+
+<div class="container d-none d-lg-block">
+  <table class="table">
+    <tr>
+      <th scope="col">Height</th>
+      <th scope="col">Confirmations</th>
+      <th scope="col">Timestamp</th>
+      <th scope="col">Size</th>
+      <th scope="col">Weight Units</th>
+    </tr>
+    {% for block in blocks %}
+    <tr>
+      <td>
+        <a href="{{ url_for('.block', blockhash=block['hash']) }}">
+          {{ block["height"] }}
+        </a>
+      </td>
+      <td>{{ block["confirmations"] }}</td>
+      <td>{{ block["time"] }}</td>
+      <td>{{ block["size"] }}</td>
+      <td>{{ block["weight"] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+<!--big screens-->
 {% endblock %}

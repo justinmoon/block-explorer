@@ -14,6 +14,7 @@
     <link href="{{ url_for('.static', filename='fontawesome/css/all.css') }}" rel="stylesheet">
     <!--Our custom CSS-->
     <link href="{{ url_for('.static', filename='styles.css') }}" rel="stylesheet">
+    <link href="{{ url_for('.static', filename='css/styles.css') }}" rel="stylesheet">
 
     <title>{% block title %}{% endblock %}</title>
     {% endblock %}
@@ -25,6 +26,9 @@
 
           <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0 text-center">
+              <li class="nav-item mx-2">
+                <img class="bitcoin" src="{{ url_for('.static', filename='bitcoin.svg') }}">
+              </li>
               <li class="nav-item {{ 'active' if 'testnet' not in request.path }}">
                 <a class="nav-link" href="/">Bitcoin</a>
               </li>
