@@ -14,9 +14,9 @@
 
 {% block content %}
 
-<!--small screens-->
+<!--small screens (perhaps delete)-->
 <div class="container d-none">
-  <div class="d-flex flex-column">
+  <div class="col">
   {% for block in blocks %}
     {{ row("HEIGHT", block["height"], link=url_for('.block', blockhash=block['hash'])) }}
     {{ row("STATUS", block["confirmations"], unit="confirmations") }}
@@ -28,7 +28,7 @@
   </div>
 </div>
 
-
+<!--small screens-->
 <div class="container d-block d-lg-none">
   {% for block in blocks %}
   <table class="table table-bordered">
@@ -60,6 +60,7 @@
   {% endfor %}
 </div>
 
+<!--large screens-->
 <div class="container d-none d-lg-block">
   <table class="table">
     <tr>
@@ -84,5 +85,4 @@
     {% endfor %}
   </table>
 
-<!--big screens-->
 {% endblock %}

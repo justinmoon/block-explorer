@@ -2,64 +2,97 @@
 <!--FIXME: why are these border / grey / etc classes repeated?-->
 <span class="border grey rounded box border-3 p-3 my-3">
 
-  <p>Tx <a href="{{ url_for('.tx', tx_id=tx['txid']) }}">
-    {{ tx["txid"] }}
-  </a></p>
+  <!--FIXME: this doesn't wrap-->
+  <p>Tx 
+    <a href="{{ url_for('.tx', tx_id=tx['txid']) }}">
+      {{ tx["txid"] }}
+    </a>
+  </p>
 
-  {% for vin in tx["vin"] %}
-  <span class="border grey rounded box border-3 p-3 {{ 'mt-3' if loop.index0 else '' }}">
-  <!--<span class="btn btn-primary btn-block">-->
-    <div class="row">
-      <div class="col-8 text-left wrap">
-        <span>#{{ loop.index0 }}</span>
-        {% if "coinbase" in vin %}
-          <span>Coinbase</span>
-        {% else %}
-          <span>{{ vin["txid"] }}:{{ vin["vout"] }}</span>
-        {% endif %}
-      </div>
-      <div class="col-4 text-right wrap"> 
-        {% if "spending" in vin %}
-          <span class="text-right">{{ vin["spending"]["value"] }} BTC</span>
-        {% endif %}
-      </div>
+  <!-- small screens -->
+  <div class="container d-block d-lg-none">
+    {% for vin in tx["vin"] %}
+    {{ render_vin(vin, loop.index0) }}
+    {% endfor %} 
+
+    <div class="text-center">
+      <i class="fas fa-angle-down" style="font-size: 2.73em;"></i>
     </div>
-  </span>
-  {% endfor %} 
 
-  <div class="text-center">
-    <i class="fas fa-angle-down" style="font-size: 2.73em;"></i>
+    {% for vout in tx["vout"] %}
+    {{ render_vout(vout, loop.index0) }}
+    {% endfor %}
   </div>
 
-  {% for vout in tx["vout"] %}
-  <span class="border grey rounded box border-3 p-3 {{ 'mt-3' if loop.index0 else '' }}">
+  <!-- large screens -->
+  <div class="container d-none d-lg-block">
     <div class="row">
-      <div class="col-8 text-left wrap">
-        <span>#{{ vout["n"] }}</span>
-        {% if "addresses" in vout["scriptPubKey"] %}
-          <!--FIXME why is addresses a list?-->
-          <span>{{ vout["scriptPubKey"]["addresses"][0] }}</span>
-        {% elif "OP_RETURN" in vout["scriptPubKey"]["asm"] %}
-          <span>OP_RETURN</span>
-        {% endif %}
+      <div class="col">
+        {% for vin in tx["vin"] %}
+        {{ render_vin(vin, loop.index0) }}
+        {% endfor %} 
       </div>
-      <div class="col-4 text-right wrap">
-        {{ vout["value"] }} BTC
+
+      <!-- FIXME: hard-coded styles -->
+      <i class="fas fa-angle-right" style="font-size: 2.73em; position: relative; top: 8px;"></i>
+
+      <div class="col">
+        {% for vout in tx["vout"] %}
+        {{ render_vout(vout, loop.index0) }}
+        {% endfor %}
       </div>
     </div>
-  </span>
-  {% endfor %}
+  </div>
 
 </span>
 {% endmacro %}
 
+{% macro render_vin(vin, index) %}
+<span class="border grey rounded box border-3 p-3 {{ 'mt-3' if index else '' }}">
+  <div class="row px-3">
+    <div class="mr-auto text-left wrap">
+      <span>#{{ index }}</span>
+      {% if "coinbase" in vin %}
+      <span>Coinbase</span>
+      {% else %}
+      <span>{{ vin["txid"] }}:{{ vin["vout"] }}</span>
+      {% endif %}
+    </div>
+    <div class="text-right wrap"> 
+      {% if "spending" in vin %}
+      <span class="text-right">{{ vin["spending"]["value"] }} BTC</span>
+      {% endif %}
+    </div>
+  </div>
+</span>
+{% endmacro %}
+
+{% macro render_vout(vout, index) %}
+<span class="border grey rounded box border-3 p-3 {{ 'mt-3' if index else '' }}">
+  <div class="row px-3">
+    <div class="mr-auto text-left wrap">
+      <span>#{{ vout["n"] }}</span>
+      {% if "addresses" in vout["scriptPubKey"] %}
+      <!--FIXME why is addresses a list?-->
+      <span>{{ vout["scriptPubKey"]["addresses"][0] }}</span>
+      {% elif "OP_RETURN" in vout["scriptPubKey"]["asm"] %}
+      <span>OP_RETURN</span>
+      {% endif %}
+    </div>
+    <div class="text-right wrap">
+      {{ vout["value"] }} BTC
+    </div>
+  </div>
+</span>
+{% endmacro %}
+
 {% macro row(label, data, unit="", link=None) %}
-<div class="d-flex">
-  <span class="mr-auto p-2 row-text">{{ label }}</span>
+<div class="row px-3">
+  <span class="mr-auto row-text">{{ label }}</span>
   {% if link %}
-    <span class="p-2 row-text"><a href="{{ link }}">{{ data }}</a></span>
+    <span class="row-text"><a href="{{ link }}">{{ data }}</a></span>
   {% else %}
-    <span class="p-2 row-text">{{ data }} {{ unit }}</span>
+    <span class="row-text">{{ data }} {{ unit }}</span>
   {% endif %}
 </div>
 {% endmacro %}

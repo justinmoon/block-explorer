@@ -5,13 +5,16 @@
 {% block title %}{{ tx['txid'] }}{% endblock %}
 
 {% block jumbotron_bottom %}
-<h3><i class="fas fa-paper-plane"></i> Transaction</h3>
+<h3>
+  <i class="fas fa-paper-plane"></i>
+  Transaction
+</h3>
 <h5 style="word-break: break-word;">{{ tx["txid"] }}</h5>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-
+  <!-- FIXME: keep this or the small screen table on index page -->
   {{ row("STATUS", tx["confirmations"]) }}<hr/>
   {{ row("INCLUDED IN BLOCK", tx["blockhash"], 
   link=url_for('.block', blockhash=tx['blockhash'])) }}<hr/>

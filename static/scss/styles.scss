@@ -1,11 +1,11 @@
-$border-width:                1px !default;
-$border-color:                $gray-300 !default;
+//$border-width:                1px !default;
+//$border-color:                $gray-300 !default;
 
-//$container-max-widths: (
-  //sm: 540px,
-  //md: 720px,
-  //lg: 720px,
-  //xl: 720px
-//) !default;
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 1060px,
+  xl: 1340px
+) !default;
 
 @import "../bootstrap/scss/bootstrap.scss";
