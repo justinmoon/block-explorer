@@ -12,12 +12,11 @@
 </div>
 {% endblock %}
 
-
 {% block content %}
 
 {{ block_widget(block) }}
 
-<h3>{{ block["nTx"] }} Transactions</h3>
+<h3>{{ block["tx"] | count }} Transactions</h3>
 
 {% for tx in block["tx"] %}
   {{ tx_widget(tx) }}
