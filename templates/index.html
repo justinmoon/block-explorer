@@ -14,20 +14,6 @@
 
 {% block content %}
 
-<!--small screens (perhaps delete)-->
-<div class="container d-none">
-  <div class="col">
-  {% for block in blocks %}
-    {{ row("HEIGHT", block["height"], link=url_for('.block', blockhash=block['hash'])) }}
-    {{ row("STATUS", block["confirmations"], unit="confirmations") }}
-    {{ row("TIMESTAMP", block["time"]) }}
-    {{ row("SIZE", block["size"], unit="KB") }}
-    {{ row("WEIGHT UNITS", block["weight"], unit="KWU") }}
-    <hr/>
-  {% endfor %}
-  </div>
-</div>
-
 <!--small screens-->
 <div class="container d-block d-lg-none">
   {% for block in blocks %}
