@@ -42,12 +42,12 @@
     </div>
 
     <div id="jumbotron" class="container">
-      <div class="jumbotron">
+      <div class="jumbotron text-center">
         {% block jumbotron_top %}{% endblock %}
-        <form action="http://localhost:5000" method="POST">
+        <form class="col col-lg-8 offset-lg-2" action="http://localhost:5000" method="POST">
           <div class="form-group">
-            <input type="text" class="form-control" name="query" 
-                                                    placeholder="Search for block height, hash, transaction, or address">
+            <input type="text" class="form-control form-control-lg" name="query" 
+                   placeholder="Search for block height, hash, transaction, or address">
           </div>
         </form>
         {% block jumbotron_bottom %}{% endblock %}

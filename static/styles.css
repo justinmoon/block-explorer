@@ -14,16 +14,11 @@ body {
   top: 4px;
 }
 
-.border {
-  display: inline-block;
-}
-
 .box {
   border-color: #E9ECEF;
   display: block;
-  width: 100%;
 }
 
-.text-wrap {
+body {
   word-break: break-word;
 }

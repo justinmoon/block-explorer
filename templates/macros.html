@@ -48,9 +48,9 @@
 {% endmacro %}
 
 {% macro render_vin(vin, index) %}
-<span class="border grey rounded box border-3 p-3 {{ 'mt-3' if index else '' }}">
+<span class="border rounded box p-3 {{ 'mt-3' if index else '' }}">
   <div class="row px-3">
-    <div class="mr-auto text-left text-wrap">
+    <div class="mr-auto text-left">
       <span>#{{ index }}</span>
       {% if "coinbase" in vin %}
       <span>Coinbase</span>
@@ -58,7 +58,7 @@
       <span>{{ vin["txid"] }}:{{ vin["vout"] }}</span>
       {% endif %}
     </div>
-    <div class="text-right text-wrap"> 
+    <div class="text-right"> 
       {% if "spending" in vin %}
       <span class="text-right">{{ vin["spending"]["value"] }} BTC</span>
       {% endif %}
@@ -68,9 +68,9 @@
 {% endmacro %}
 
 {% macro render_vout(vout, index) %}
-<span class="border grey rounded box border-3 p-3 {{ 'mt-3' if index else '' }}">
+<span class="border rounded box p-3 {{ 'mt-3' if index else '' }}">
   <div class="row px-3">
-    <div class="mr-auto text-left text-wrap">
+    <div class="mr-auto text-left">
       <span>#{{ vout["n"] }}</span>
       {% if "addresses" in vout["scriptPubKey"] %}
         <!--FIXME why is addresses a list?-->
@@ -79,7 +79,7 @@
         <span>OP_RETURN</span>
       {% endif %}
     </div>
-    <div class="text-right text-wrap">
+    <div class="text-right">
       {{ vout["value"] }} BTC
     </div>
   </div>
