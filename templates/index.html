@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% from "macros.html" import tx_widget, row with context %}
+{% from "macros.html" import block_widget with context %}
 
 {% block title %}Mooniversity Explorer{% endblock %}
 
@@ -7,54 +7,29 @@
 {% endblock %}
 
 {% block jumbotron_top %}
-  <h1>
-    Mooniversity Explorer
-  </h1>
+<h1>
+  Mooniversity Explorer
+</h1>
 {% endblock %}
 
 {% block content %}
 
 <!--small screens-->
-<div class="container d-block d-lg-none">
+<div class="d-block d-lg-none">
   {% for block in blocks %}
-  <table class="table table-bordered">
-    <tr>
-      <th>Height</th>
-      <td class="text-right">
-        <a href="{{ url_for('.block', blockhash=block['hash']) }}">
-          {{ block["height"] }}
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <th>Status</th>
-      <td class="text-right">{{ block["confirmations"] }} confirmations</td>
-    </tr>
-    <tr>
-      <th>Timestamp</th>
-      <td class="text-right">{{ format_unixtime(block["time"]) }}</td>
-    </tr>
-    <tr>
-      <th>size</th>
-      <td class="text-right">{{ block["size"] }} KB</td>
-    </tr>
-    <tr>
-      <th>Weight Units</th>
-      <td class="text-right">{{ block["weight"] }} KWU</td>
-    </tr>
-  </table>
+    {{ block_widget(block) }}
   {% endfor %}
 </div>
 
 <!--large screens-->
-<div class="container d-none d-lg-block">
+<div class="d-none d-lg-block">
   <table class="table">
     <tr>
       <th scope="col">Height</th>
       <th scope="col">Confirmations</th>
       <th scope="col">Timestamp</th>
-      <th scope="col">Size</th>
-      <th scope="col">Weight Units</th>
+      <th scope="col">Size (KB)</th>
+      <th scope="col">Weight Units (KWU)</th>
     </tr>
     {% for block in blocks %}
     <tr>
@@ -70,5 +45,6 @@
     </tr>
     {% endfor %}
   </table>
+</div>
 
 {% endblock %}

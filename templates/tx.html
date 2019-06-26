@@ -14,26 +14,41 @@
 
 {% block content %}
 <div class="container">
-  <!-- FIXME: keep this or the small screen table on index page -->
-  {{ row("STATUS", tx["confirmations"]) }}<hr/>
-  {{ row("INCLUDED IN BLOCK", tx["blockhash"], 
-  link=url_for('.block', blockhash=tx['blockhash'])) }}<hr/>
 
-  <!--skip BLOCK HEIGHT b/c that's not readily available-->
-
-  {{ row("BLOCK TIMESTAMP", tx["blocktime"]) }}<hr/>
-
-  <!--skip TRANSACTION FEES b/c that's not readily available-->
-
-  <!--TODO: add units for these two-->
-  {{ row("SIZE", tx["size"]) }}<hr/>
-  {{ row("VIRTUAL SIZE", tx["vsize"]) }}<hr/>
-  {{ row("WEIGHT UNITS", tx["weight"]) }}<hr/>
-
-  {{ row("VERSION", tx["version"]) }}<hr/>
-  {{ row("LOCKTIME", tx["locktime"]) }}
+  <div class="card">
+    <table class="table">
+      <tr>
+        <td>Status</td>
+        <td class="text-right">{{ tx["confirmations"] }} confirmations</td>
+      </tr>
+      <tr>
+        <td>Included in Block</td>
+        <td class="text-right">{{ tx["blockhash"] }}</td>
+      </tr>
+      <tr>
+        <td>Block Timestamp</td>
+        <td class="text-right">{{ format_unixtime(tx["time"]) }}</td>
+      </tr>
+      <tr>
+        <td>Size</td>
+        <td class="text-right">{{ tx["size"] }} KB</td>
+      </tr>
+      <tr>
+        <td>Weight Units</td>
+        <td class="text-right">{{ tx["weight"] }} KWU</td>
+      </tr>
+      <tr>
+        <td>Version</td>
+        <td class="text-right">{{ tx["version"] }}</td>
+      </tr>
+      <tr>
+        <td>Locktime</td>
+        <td class="text-right">{{ tx["weight"] }}</td>
+      </tr>
+    </table>
+  </div>
 
   {{ tx_widget(tx) }}
+
 </div>
 {% endblock %}
-</html>
