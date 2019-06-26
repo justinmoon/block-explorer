@@ -14,15 +14,13 @@
 
 
 {% block content %}
-<div class="container">
 
-  {{ block_widget(block) }}
+{{ block_widget(block) }}
 
-  <h3>{{ block["nTx"] }} Transactions</h3>
+<h3>{{ block["nTx"] }} Transactions</h3>
 
-  {% for tx in block["tx"] %}
-    {{ tx_widget(tx) }}
-  {% endfor %} 
+{% for tx in block["tx"] %}
+  {{ tx_widget(tx) }}
+{% endfor %} 
 
-</div>
 {% endblock %}

@@ -13,42 +13,39 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-
-  <div class="card">
-    <table class="table">
-      <tr>
-        <td>Status</td>
-        <td class="text-right">{{ tx["confirmations"] }} confirmations</td>
-      </tr>
-      <tr>
-        <td>Included in Block</td>
-        <td class="text-right">{{ tx["blockhash"] }}</td>
-      </tr>
-      <tr>
-        <td>Block Timestamp</td>
-        <td class="text-right">{{ format_unixtime(tx["time"]) }}</td>
-      </tr>
-      <tr>
-        <td>Size</td>
-        <td class="text-right">{{ tx["size"] }} KB</td>
-      </tr>
-      <tr>
-        <td>Weight Units</td>
-        <td class="text-right">{{ tx["weight"] }} KWU</td>
-      </tr>
-      <tr>
-        <td>Version</td>
-        <td class="text-right">{{ tx["version"] }}</td>
-      </tr>
-      <tr>
-        <td>Locktime</td>
-        <td class="text-right">{{ tx["weight"] }}</td>
-      </tr>
-    </table>
-  </div>
-
-  {{ tx_widget(tx) }}
-
+<div class="card">
+  <table class="table">
+    <tr>
+      <td>Status</td>
+      <td class="text-right">{{ tx["confirmations"] }} confirmations</td>
+    </tr>
+    <tr>
+      <td>Included in Block</td>
+      <td class="text-right">{{ tx["blockhash"] }}</td>
+    </tr>
+    <tr>
+      <td>Block Timestamp</td>
+      <td class="text-right">{{ format_unixtime(tx["time"]) }}</td>
+    </tr>
+    <tr>
+      <td>Size</td>
+      <td class="text-right">{{ tx["size"] }} KB</td>
+    </tr>
+    <tr>
+      <td>Weight Units</td>
+      <td class="text-right">{{ tx["weight"] }} KWU</td>
+    </tr>
+    <tr>
+      <td>Version</td>
+      <td class="text-right">{{ tx["version"] }}</td>
+    </tr>
+    <tr>
+      <td>Locktime</td>
+      <td class="text-right">{{ tx["weight"] }}</td>
+    </tr>
+  </table>
 </div>
+
+{{ tx_widget(tx) }}
+
 {% endblock %}
