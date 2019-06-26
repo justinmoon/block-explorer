@@ -26,21 +26,18 @@
 
     <div id="navbar" class="container">
       <nav class="navbar navbar-expand navbar-light bg-white">
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0 text-center">
-            <li class="nav-item mx-2">
-              <img class="bitcoin" src="{{ url_for('.static', filename='bitcoin.svg') }}">
-            </li>
-            <li class="nav-item {{ 'active' if 'testnet' not in request.path }}">
-              <a class="nav-link" href="/">Bitcoin</a>
-            </li>
-            <li class="nav-item {{ 'active' if 'testnet' in request.path }}">
-              <a class="nav-link" href="/testnet">Testnet</a>
-            </li>
-          </ul>
-        </div>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 text-center">
+          <li class="nav-item mx-2">
+            <img class="bitcoin" src="{{ url_for('.static', filename='bitcoin.svg') }}">
+          </li>
+          <li class="nav-item {{ 'active' if 'testnet' not in request.path }}">
+            <a class="nav-link" href="/">Bitcoin</a>
+          </li>
+          <li class="nav-item {{ 'active' if 'testnet' in request.path }}">
+            <a class="nav-link" href="/testnet">Testnet</a>
+          </li>
+        </ul>
       </nav>
-
       {% block navbar %}{% endblock %}
     </div>
 
