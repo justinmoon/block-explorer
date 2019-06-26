@@ -46,7 +46,7 @@
     </tr>
     <tr>
       <th>Timestamp</th>
-      <td class="text-right">{{ block["time"] }} confirmations</td>
+      <td class="text-right">{{ format_unixtime(block["time"]) }}</td>
     </tr>
     <tr>
       <th>size</th>
@@ -78,7 +78,7 @@
         </a>
       </td>
       <td>{{ block["confirmations"] }}</td>
-      <td>{{ block["time"] }}</td>
+      <td>{{ format_unixtime(block["time"]) }}</td>
       <td>{{ block["size"] }}</td>
       <td>{{ block["weight"] }}</td>
     </tr>

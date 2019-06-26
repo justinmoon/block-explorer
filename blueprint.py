@@ -6,7 +6,6 @@ from helpers import (get_block_with_txns, get_last_blocks_threaded,
 blueprint = Blueprint('explorer', __name__, 
         static_folder='static', template_folder='templates')
 
-
 @blueprint.errorhandler(ConnectionRefusedError)
 def handle_connection_refused(e):
     return redirect(url_for(".error", msg="bitcoin RPC failed"))

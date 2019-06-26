@@ -16,7 +16,7 @@
 
   {{ row("HEIGHT", block["height"]) }}<hr/>
   {{ row("STATUS", block["confirmations"]) }}<hr/>
-  {{ row("TIMESTAMP", block["time"]) }}<hr/>
+  {{ row("TIMESTAMP", format_unixtime(block["time"])) }}<hr/>
   {{ row("SIZE", block["size"]) }}<hr/>
   <!-- https://bitcoin.stackexchange.com/questions/67113/how-does-segwit-reduce-transaction-size-when-the-signature-is-simply-moved-to-a/67115#67115 -->
   {{ row("VIRTUAL SIZE", (block["weight"] | int) / 4) }}<hr/>
