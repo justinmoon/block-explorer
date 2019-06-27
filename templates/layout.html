@@ -1,8 +1,6 @@
 <!doctype html>
 <html>
   <head>
-    {% block head %}
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,7 +18,6 @@
     <script src="{{ url_for('.static', filename='moment.js') }}"></script>
 
     <title>{% block title %}{% endblock %}</title>
-    {% endblock %}
   </head>
 
   <body class="d-flex flex-column">
@@ -39,7 +36,6 @@
           </li>
         </ul>
       </nav>
-      {% block navbar %}{% endblock %}
     </div>
 
     <div id="jumbotron" class="container">

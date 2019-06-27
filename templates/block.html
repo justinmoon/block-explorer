@@ -2,8 +2,7 @@
 
 {% from "macros.html" import tx_widget, block_widget with context %}
 
-<!doctype html>
-{% block title %}Blocks{% endblock %}
+{% block title %}Block #{{ block["height"] }}{% endblock %}
 
 {% block jumbotron_bottom %}
   <h3><i class="fas fa-cube"></i> Block {{ block["height"] }}</h3>
@@ -11,13 +10,9 @@
 {% endblock %}
 
 {% block content %}
-
-{{ block_widget(block) }}
-
-<h3>{{ block["tx"] | count }} Transactions</h3>
-
-{% for tx in block["tx"] %}
-  {{ tx_widget(tx) }}
-{% endfor %} 
-
+  {{ block_widget(block) }}
+  <h3>{{ block["tx"] | count }} Transactions</h3>
+  {% for tx in block["tx"] %}
+    {{ tx_widget(tx) }}
+  {% endfor %} 
 {% endblock %}

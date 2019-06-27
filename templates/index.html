@@ -1,50 +1,44 @@
 {% extends "layout.html" %}
+
 {% from "macros.html" import block_widget with context %}
 
 {% block title %}Mooniversity Explorer{% endblock %}
 
-{% block navbar %}
-{% endblock %}
-
 {% block jumbotron_top %}
-<h1>
-  Mooniversity Explorer
-</h1>
+  <h1>Mooniversity Explorer</h1>
 {% endblock %}
 
 {% block content %}
-
-<!--small screens-->
-<div class="d-block d-lg-none">
-  {% for block in blocks %}
-    {{ block_widget(block) }}
-  {% endfor %}
-</div>
-
-<!--large screens-->
-<div class="d-none d-lg-block">
-  <table class="table">
-    <tr>
-      <th scope="col">Height</th>
-      <th scope="col">Confirmations</th>
-      <th scope="col">Timestamp</th>
-      <th scope="col">Size (KB)</th>
-      <th scope="col">Weight Units (KWU)</th>
-    </tr>
+  <!--small screens-->
+  <div class="d-block d-lg-none">
     {% for block in blocks %}
-    <tr>
-      <td>
-        <a href="{{ url_for('.block', blockhash=block['hash']) }}">
-          {{ block["height"] }}
-        </a>
-      </td>
-      <td>{{ block["confirmations"] }}</td>
-      <td>{{ format_unixtime(block["time"]) }}</td>
-      <td>{{ block["size"] }}</td>
-      <td>{{ block["weight"] }}</td>
-    </tr>
+      {{ block_widget(block) }}
     {% endfor %}
-  </table>
-</div>
+  </div>
 
+  <!--large screens-->
+  <div class="d-none d-lg-block">
+    <table class="table">
+      <tr>
+        <th scope="col">Height</th>
+        <th scope="col">Confirmations</th>
+        <th scope="col">Timestamp</th>
+        <th scope="col">Size (KB)</th>
+        <th scope="col">Weight Units (KWU)</th>
+      </tr>
+      {% for block in blocks %}
+        <tr>
+          <td>
+            <a href="{{ url_for('.block', blockhash=block['hash']) }}">
+              {{ block["height"] }}
+            </a>
+          </td>
+          <td>{{ block["confirmations"] }}</td>
+          <td>{{ format_unixtime(block["time"]) }}</td>
+          <td>{{ block["size"] }}</td>
+          <td>{{ block["weight"] }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
 {% endblock %}

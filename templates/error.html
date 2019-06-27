@@ -1,16 +1,12 @@
 {% extends "layout.html" %}
-{% from "macros.html" import tx_widget, row with context %}
 
 {% block title %}Error{% endblock %}
 
-{% block navbar %}
-{% endblock %}
-
 {% block jumbotron_bottom %}
 <h1>There was an error</h1>
+
 {% if msg %}
     <h3>{{ msg }}<h3>
 {% endif %}
-
 {% endblock %}
 

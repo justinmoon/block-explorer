@@ -2,21 +2,18 @@
 
 {% from "macros.html" import tx_widget with context %}
 
-<!doctype html>
 {% block title %}Address{% endblock %}
 
 {% block jumbotron_bottom %}
-<h3><i class="fas fa-at"></i> Address</h3>
-<h5 style="word-break: break-word;">{{ address }}</h5>
+  <h3><i class="fas fa-at"></i> Address</h3>
+  <h5 style="word-break: break-word;">{{ address }}</h5>
 {% endblock %}
 
 
 {% block content %}
-<div class="container">
-    <h1>{{ txns | length }} Transactions</h1>
+  <h1>{{ txns | length }} Transactions</h1>
   {% for tx in txns %}
     {{ tx_widget(tx) }}
   {% endfor %} 
-</div>
 {% endblock %}
 

@@ -1,51 +1,49 @@
 {% extends "layout.html" %}
 
-{% from "macros.html" import row, tx_widget with context %}
+{% from "macros.html" import tx_widget with context %}
 
-{% block title %}{{ tx['txid'] }}{% endblock %}
+{% block title %}Transaction: {{ tx['txid'] }}{% endblock %}
 
 {% block jumbotron_bottom %}
-<h3>
-  <i class="fas fa-paper-plane"></i>
-  Transaction
-</h3>
-<h5 style="word-break: break-word;">{{ tx["txid"] }}</h5>
+  <h3>
+    <i class="fas fa-paper-plane"></i>
+    Transaction
+  </h3>
+  <h5>{{ tx["txid"] }}</h5>
 {% endblock %}
 
 {% block content %}
-<div class="card">
-  <table class="table">
-    <tr>
-      <td>Status</td>
-      <td class="text-right">{{ tx["confirmations"] }} confirmations</td>
-    </tr>
-    <tr>
-      <td>Included in Block</td>
-      <td class="text-right">{{ tx["blockhash"] }}</td>
-    </tr>
-    <tr>
-      <td>Block Timestamp</td>
-      <td class="text-right">{{ format_unixtime(tx["time"]) }}</td>
-    </tr>
-    <tr>
-      <td>Size</td>
-      <td class="text-right">{{ tx["size"] }} KB</td>
-    </tr>
-    <tr>
-      <td>Weight Units</td>
-      <td class="text-right">{{ tx["weight"] }} KWU</td>
-    </tr>
-    <tr>
-      <td>Version</td>
-      <td class="text-right">{{ tx["version"] }}</td>
-    </tr>
-    <tr>
-      <td>Locktime</td>
-      <td class="text-right">{{ tx["weight"] }}</td>
-    </tr>
-  </table>
-</div>
-
-{{ tx_widget(tx) }}
-
+  <div class="card">
+    <table class="table">
+      <tr>
+        <td>Status</td>
+        <td class="text-right">{{ tx["confirmations"] }} confirmations</td>
+      </tr>
+      <tr>
+        <td>Included in Block</td>
+        <td class="text-right">{{ tx["blockhash"] }}</td>
+      </tr>
+      <tr>
+        <td>Block Timestamp</td>
+        <td class="text-right">{{ format_unixtime(tx["time"]) }}</td>
+      </tr>
+      <tr>
+        <td>Size</td>
+        <td class="text-right">{{ tx["size"] }} KB</td>
+      </tr>
+      <tr>
+        <td>Weight Units</td>
+        <td class="text-right">{{ tx["weight"] }} KWU</td>
+      </tr>
+      <tr>
+        <td>Version</td>
+        <td class="text-right">{{ tx["version"] }}</td>
+      </tr>
+      <tr>
+        <td>Locktime</td>
+        <td class="text-right">{{ tx["weight"] }}</td>
+      </tr>
+    </table>
+  </div>
+  {{ tx_widget(tx) }}
 {% endblock %}
