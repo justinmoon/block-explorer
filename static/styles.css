@@ -6,6 +6,8 @@ table {
 body {
   /* take up 100% of viewport's (part of page visible to user) vertical height */
   min-height: 100vh !important;
+  /* warp text when it expands beyond container */
+  word-break: break-word;
 }
 
 .bitcoin {
@@ -17,10 +19,6 @@ body {
 .box {
   border-color: #E9ECEF;
   display: block;
-}
-
-body {
-  word-break: break-word;
 }
 
 /* centers input placeholder */
