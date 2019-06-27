@@ -7,13 +7,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Vendor dependencies -->
+    <!-- Bootstrap's CSS saved locally  -->
     <link href="{{ url_for('.static', filename='bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ url_for('.static', filename='moment.js') }}" rel="stylesheet">
-    <link href="{{ url_for('.static', filename='fontawesome.css') }}" rel="stylesheet">
 
-    <!--Our CSS-->
+    <!-- Fontawesome's CSS loaded from 3rd party (faster, easier, worse security)-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" rel="stylesheet">
+
+    <!-- Our custom CSS -->
     <link href="{{ url_for('.static', filename='styles.css') }}" rel="stylesheet">
+
+    <!-- Javascript code to manipulate dates (used for block times) -->
+    <script src="{{ url_for('.static', filename='moment.js') }}"></script>
 
     <title>{% block title %}{% endblock %}</title>
     {% endblock %}
@@ -22,9 +26,9 @@
   <body class="d-flex flex-column">
 
     <div id="navbar" class="container">
-      <nav class="navbar navbar-expand navbar-light bg-white">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 text-center">
-          <li class="nav-item mx-2">
+      <nav class="navbar navbar-expand navbar-light">
+        <ul class="navbar-nav mt-lg-0 text-center">
+          <li class="nav-item mr-2">
             <img class="bitcoin" src="{{ url_for('.static', filename='bitcoin.svg') }}">
           </li>
           <li class="nav-item {{ 'active' if 'testnet' not in request.path }}">
