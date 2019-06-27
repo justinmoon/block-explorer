@@ -7,16 +7,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- Vendor dependencies -->
+    <link href="{{ url_for('.static', filename='bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ url_for('.static', filename='moment.js') }}" rel="stylesheet">
+    <link href="{{ url_for('.static', filename='fontawesome.css') }}" rel="stylesheet">
 
-    <script src="/static/moment.min.js"></script>
-
-    <!--Fontawesome for icons-->
-    <link href="{{ url_for('.static', filename='fontawesome/css/all.css') }}" rel="stylesheet">
-    <!--Our custom CSS-->
+    <!--Our CSS-->
     <link href="{{ url_for('.static', filename='styles.css') }}" rel="stylesheet">
-    <link href="{{ url_for('.static', filename='css/styles.css') }}" rel="stylesheet">
 
     <title>{% block title %}{% endblock %}</title>
     {% endblock %}
@@ -31,10 +28,10 @@
             <img class="bitcoin" src="{{ url_for('.static', filename='bitcoin.svg') }}">
           </li>
           <li class="nav-item {{ 'active' if 'testnet' not in request.path }}">
-            <a class="nav-link" href="/">Bitcoin</a>
+              <a class="nav-link" href="{{ url_for('mainnet.index') }}">Bitcoin</a>
           </li>
           <li class="nav-item {{ 'active' if 'testnet' in request.path }}">
-            <a class="nav-link" href="/testnet">Testnet</a>
+              <a class="nav-link" href="{{ url_for('testnet.index') }}">Testnet</a>
           </li>
         </ul>
       </nav>
@@ -44,7 +41,7 @@
     <div id="jumbotron" class="container">
       <div class="jumbotron text-center">
         {% block jumbotron_top %}{% endblock %}
-        <form class="col col-lg-8 offset-lg-2" action="http://localhost:5000" method="POST">
+        <form class="col col-lg-8 offset-lg-2" action="{{ url_for('.search') }}" method="POST">
           <div class="form-group">
             <input type="text" class="form-control form-control-lg" name="query" 
                    placeholder="Search for block height, hash, transaction, or address">

@@ -41,6 +41,8 @@ class RPCRouter:
 
     def __getattr__(self, name):
         if current_app and 'testnet' in request.path:
+            print('calling testnet', name)
             return getattr(self.testnet, name)
         else:
+            print('calling mainnet', name)
             return getattr(self.mainnet, name)
