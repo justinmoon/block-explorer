@@ -22,3 +22,18 @@ body {
 body {
   word-break: break-word;
 }
+
+/* centers input placeholder */
+::-webkit-input-placeholder {
+  text-align: center;
+}
+:-moz-placeholder { /* older Firefox*/
+  text-align: center;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  text-align: center;
+}
+:-ms-input-placeholder {
+  text-align: center;
+}
+
