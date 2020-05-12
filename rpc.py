@@ -84,20 +84,15 @@ def get_last_blocks_threaded(num_blocks):
     return get_blocks_threaded(height, num_blocks)
 
 
-def get_blocks(height, num_blocks):
+def get_last_blocks(num_blocks):
     """get `num_blocks` starting from `height`"""
     blocks = []
-    next_block_hash = rpc.getblockhash(height)
+    blockhash = rpc.getbestblockhash()
     for _ in range(num_blocks):
-        block = get_block(next_block_hash)
-        next_block_hash = block["previousblockhash"]
+        block = rpc.getblock(blockhash)
+        blockhash = block["previousblockhash"]
         blocks.append(block)
     return blocks
-
-
-def get_last_blocks(num_blocks):
-    height = rpc.getblockchaininfo()["blocks"]
-    return get_blocks(height, num_blocks)
 
 
 def get_tx(tx_id):
